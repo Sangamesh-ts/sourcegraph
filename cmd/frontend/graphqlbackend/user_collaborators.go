@@ -11,7 +11,6 @@ import (
 	"github.com/sourcegraph/sourcegraph/cmd/frontend/backend"
 	"github.com/sourcegraph/sourcegraph/internal/actor"
 	"github.com/sourcegraph/sourcegraph/internal/api"
-	"github.com/sourcegraph/sourcegraph/internal/authz"
 	"github.com/sourcegraph/sourcegraph/internal/database"
 	"github.com/sourcegraph/sourcegraph/internal/gitserver"
 	"github.com/sourcegraph/sourcegraph/internal/gitserver/gitdomain"
@@ -72,7 +71,7 @@ func (r *UserResolver) InvitableCollaborators(ctx context.Context) ([]*invitable
 	return filterInvitableCollaborators(recentCommitters, authUserEmails, userExistsByUsername, userExistsByEmail), nil
 }
 
-type GitCommitsFunc func(context.Context, authz.SubRepoPermissionChecker, api.RepoName, gitserver.CommitsOptions) ([]*gitdomain.Commit, error)
+type GitCommitsFunc func(context.Context, api.RepoName, gitserver.CommitsOptions) ([]*gitdomain.Commit, error)
 
 func gitserverParallelRecentCommitters(ctx context.Context, repos []*types.Repo, gitCommits GitCommitsFunc) (allRecentCommitters []*invitableCollaboratorResolver) {
 	var (
@@ -85,7 +84,7 @@ func gitserverParallelRecentCommitters(ctx context.Context, repos []*types.Repo,
 		goroutine.Go(func() {
 			defer wg.Done()
 
-			recentCommits, err := gitCommits(ctx, authz.DefaultSubRepoPermsChecker, repo.Name, gitserver.CommitsOptions{
+			recentCommits, err := gitCommits(ctx, repo.Name, gitserver.CommitsOptions{
 				N:                200,
 				NoEnsureRevision: true, // Don't try to fetch missing commits.
 				NameOnly:         true, // Don't fetch detailed info like commit diffs.
