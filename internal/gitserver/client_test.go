@@ -331,8 +331,8 @@ func TestClient_Remove(t *testing.T) {
 				}
 			}
 		})
-		cli := gitserver.NewTestClient(
-			httpcli.DoerFunc(func(r *http.Request) (*http.Response, error) {
+		cli := gitserver.NewTestClient(t).
+			WithDoer(httpcli.DoerFunc(func(r *http.Request) (*http.Response, error) {
 				switch r.URL.String() {
 				// Ensure that the request was received by the "expected" gitserver instance - where
 				// expected is the gitserver instance according to the Rendezvous hashing scheme.
@@ -345,10 +345,8 @@ func TestClient_Remove(t *testing.T) {
 				default:
 					return nil, errors.Newf("unexpected URL: %q", r.URL.String())
 				}
-			}),
-
-			source,
-		)
+			})).
+			WithClientSource(source)
 
 		err := cli.Remove(context.Background(), repo)
 		if err != nil {
@@ -517,7 +515,7 @@ func TestClient_P4ExecGRPC(t *testing.T) {
 				}
 			})
 
-			cli := gitserver.NewTestClient(&http.Client{}, source)
+			cli := gitserver.NewTestClient(t).WithClientSource(source)
 			rc, _, err := cli.P4Exec(ctx, test.host, test.user, test.password, test.args...)
 			if diff := cmp.Diff(test.wantReaderConstructionError, fmt.Sprintf("%v", err)); diff != "" {
 				t.Errorf("error when creating reader mismatch (-want +got):\n%s", diff)
@@ -653,7 +651,7 @@ func TestClient_P4Exec(t *testing.T) {
 			source := gitserver.NewTestClientSource(t, addrs)
 			called := false
 
-			cli := gitserver.NewTestClient(&http.Client{}, source)
+			cli := gitserver.NewTestClient(t).WithClientSource(source)
 			runTest(t, test, cli, called)
 
 			if called {
@@ -707,7 +705,7 @@ func TestClient_BatchLogGRPC(t *testing.T) {
 		}
 	})
 
-	cli := gitserver.NewTestClient(&http.Client{}, source)
+	cli := gitserver.NewTestClient(t).WithClientSource(source)
 
 	opts := gitserver.BatchLogOptions{
 		RepoCommits: []api.RepoCommit{
@@ -790,8 +788,8 @@ func TestClient_BatchLog(t *testing.T) {
 		}
 	})
 
-	cli := gitserver.NewTestClient(
-		httpcli.DoerFunc(func(r *http.Request) (*http.Response, error) {
+	cli := gitserver.NewTestClient(t).
+		WithDoer(httpcli.DoerFunc(func(r *http.Request) (*http.Response, error) {
 			var req protocol.BatchLogRequest
 			if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 				return nil, err
@@ -809,9 +807,8 @@ func TestClient_BatchLog(t *testing.T) {
 			encoded, _ := json.Marshal(protocol.BatchLogResponse{Results: results})
 			body := io.NopCloser(strings.NewReader(strings.TrimSpace(string(encoded))))
 			return &http.Response{StatusCode: 200, Body: body}, nil
-		}),
-		source,
-	)
+		})).
+		WithClientSource(source)
 
 	opts := gitserver.BatchLogOptions{
 		RepoCommits: []api.RepoCommit{
@@ -988,7 +985,7 @@ func TestClient_IsRepoCloneableGRPC(t *testing.T) {
 				}
 			})
 
-			client := gitserver.NewTestClient(http.DefaultClient, source)
+			client := gitserver.NewTestClient(t).WithClientSource(source)
 
 			runTests(t, client, tc)
 			if !called {
@@ -1025,8 +1022,8 @@ func TestClient_IsRepoCloneableGRPC(t *testing.T) {
 				}
 			})
 
-			client := gitserver.NewTestClient(
-				httpcli.DoerFunc(func(r *http.Request) (*http.Response, error) {
+			client := gitserver.NewTestClient(t).
+				WithDoer(httpcli.DoerFunc(func(r *http.Request) (*http.Response, error) {
 					switch r.URL.String() {
 					case expected + "/is-repo-cloneable":
 						encoded, _ := json.Marshal(tc.mockResponse)
@@ -1038,9 +1035,8 @@ func TestClient_IsRepoCloneableGRPC(t *testing.T) {
 					default:
 						return nil, errors.Newf("unexpected URL: %q", r.URL.String())
 					}
-				}),
-				source,
-			)
+				})).
+				WithClientSource(source)
 
 			runTests(t, client, tc)
 			if called {
@@ -1127,7 +1123,7 @@ func TestClient_SystemsInfo(t *testing.T) {
 			}
 		})
 
-		client := gitserver.NewTestClient(http.DefaultClient, source)
+		client := gitserver.NewTestClient(t).WithClientSource(source)
 
 		runTest(t, client)
 		if !called {
@@ -1158,8 +1154,8 @@ func TestClient_SystemsInfo(t *testing.T) {
 			}
 		})
 
-		client := gitserver.NewTestClient(
-			httpcli.DoerFunc(func(r *http.Request) (*http.Response, error) {
+		client := gitserver.NewTestClient(t).
+			WithDoer(httpcli.DoerFunc(func(r *http.Request) (*http.Response, error) {
 				responseByAddress := make(map[string]*proto.DiskInfoResponse, len(expectedResponses))
 				for _, response := range expectedResponses {
 					responseByAddress[fmt.Sprintf("http://%s/disk-info", response.Address)] = &proto.DiskInfoResponse{
@@ -1181,9 +1177,8 @@ func TestClient_SystemsInfo(t *testing.T) {
 					StatusCode: 200,
 					Body:       body,
 				}, nil
-			}),
-			source,
-		)
+			})).
+			WithClientSource(source)
 
 		runTest(t, client)
 		if called {
@@ -1231,7 +1226,7 @@ func TestClient_SystemInfo(t *testing.T) {
 			}
 		})
 
-		client := gitserver.NewTestClient(http.DefaultClient, source)
+		client := gitserver.NewTestClient(t).WithClientSource(source)
 
 		runTest(t, client, gitserverAddr)
 		if !called {
@@ -1263,8 +1258,8 @@ func TestClient_SystemInfo(t *testing.T) {
 			}
 		})
 
-		client := gitserver.NewTestClient(
-			httpcli.DoerFunc(func(r *http.Request) (*http.Response, error) {
+		client := gitserver.NewTestClient(t).
+			WithDoer(httpcli.DoerFunc(func(r *http.Request) (*http.Response, error) {
 				switch r.URL.String() {
 				case expected + "/disk-info":
 					encoded, _ := json.Marshal(mockResponse)
@@ -1276,9 +1271,8 @@ func TestClient_SystemInfo(t *testing.T) {
 				default:
 					return nil, errors.Newf("unexpected URL: %q", r.URL.String())
 				}
-			}),
-			source,
-		)
+			})).
+			WithClientSource(source)
 
 		runTest(t, client, gitserverAddr)
 		if called {
