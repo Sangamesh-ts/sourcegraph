@@ -1454,9 +1454,9 @@ type ClientBranchesContainingFunc struct {
 
 // BranchesContaining delegates to the next hook function in the queue and
 // stores the parameter and result values of this invocation.
-func (m *MockClient) BranchesContaining(v0 context.Context, v2 api.RepoName, v3 api.CommitID) ([]string, error) {
-	r0, r1 := m.BranchesContainingFunc.nextHook()(v0, v2, v3)
-	m.BranchesContainingFunc.appendCall(ClientBranchesContainingFuncCall{v0, v2, v3, r0, r1})
+func (m *MockClient) BranchesContaining(v0 context.Context, v1 api.RepoName, v2 api.CommitID) ([]string, error) {
+	r0, r1 := m.BranchesContainingFunc.nextHook()(v0, v1, v2)
+	m.BranchesContainingFunc.appendCall(ClientBranchesContainingFuncCall{v0, v1, v2, r0, r1})
 	return r0, r1
 }
 
@@ -1528,12 +1528,12 @@ type ClientBranchesContainingFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
-	// Arg3 is the value of the 4th argument passed to this method
-	// invocation.
-	Arg3 api.CommitID
+	Arg2 api.CommitID
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 []string
@@ -1545,7 +1545,7 @@ type ClientBranchesContainingFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientBranchesContainingFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2}
 }
 
 // Results returns an interface slice containing the results of this
@@ -1678,9 +1678,9 @@ type ClientCommitDateFunc struct {
 
 // CommitDate delegates to the next hook function in the queue and stores
 // the parameter and result values of this invocation.
-func (m *MockClient) CommitDate(v0 context.Context, v2 api.RepoName, v3 api.CommitID) (string, time.Time, bool, error) {
-	r0, r1, r2, r3 := m.CommitDateFunc.nextHook()(v0, v2, v3)
-	m.CommitDateFunc.appendCall(ClientCommitDateFuncCall{v0, v2, v3, r0, r1, r2, r3})
+func (m *MockClient) CommitDate(v0 context.Context, v1 api.RepoName, v2 api.CommitID) (string, time.Time, bool, error) {
+	r0, r1, r2, r3 := m.CommitDateFunc.nextHook()(v0, v1, v2)
+	m.CommitDateFunc.appendCall(ClientCommitDateFuncCall{v0, v1, v2, r0, r1, r2, r3})
 	return r0, r1, r2, r3
 }
 
@@ -1751,12 +1751,12 @@ type ClientCommitDateFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
-	// Arg3 is the value of the 4th argument passed to this method
-	// invocation.
-	Arg3 api.CommitID
+	Arg2 api.CommitID
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 string
@@ -1774,7 +1774,7 @@ type ClientCommitDateFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientCommitDateFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2}
 }
 
 // Results returns an interface slice containing the results of this
@@ -1794,9 +1794,9 @@ type ClientCommitExistsFunc struct {
 
 // CommitExists delegates to the next hook function in the queue and stores
 // the parameter and result values of this invocation.
-func (m *MockClient) CommitExists(v0 context.Context, v2 api.RepoName, v3 api.CommitID) (bool, error) {
-	r0, r1 := m.CommitExistsFunc.nextHook()(v0, v2, v3)
-	m.CommitExistsFunc.appendCall(ClientCommitExistsFuncCall{v0, v2, v3, r0, r1})
+func (m *MockClient) CommitExists(v0 context.Context, v1 api.RepoName, v2 api.CommitID) (bool, error) {
+	r0, r1 := m.CommitExistsFunc.nextHook()(v0, v1, v2)
+	m.CommitExistsFunc.appendCall(ClientCommitExistsFuncCall{v0, v1, v2, r0, r1})
 	return r0, r1
 }
 
@@ -1867,12 +1867,12 @@ type ClientCommitExistsFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
-	// Arg3 is the value of the 4th argument passed to this method
-	// invocation.
-	Arg3 api.CommitID
+	Arg2 api.CommitID
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 bool
@@ -1884,7 +1884,7 @@ type ClientCommitExistsFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientCommitExistsFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2}
 }
 
 // Results returns an interface slice containing the results of this
@@ -2124,9 +2124,9 @@ type ClientCommitsFunc struct {
 
 // Commits delegates to the next hook function in the queue and stores the
 // parameter and result values of this invocation.
-func (m *MockClient) Commits(v0 context.Context, v2 api.RepoName, v3 CommitsOptions) ([]*gitdomain.Commit, error) {
-	r0, r1 := m.CommitsFunc.nextHook()(v0, v2, v3)
-	m.CommitsFunc.appendCall(ClientCommitsFuncCall{v0, v2, v3, r0, r1})
+func (m *MockClient) Commits(v0 context.Context, v1 api.RepoName, v2 CommitsOptions) ([]*gitdomain.Commit, error) {
+	r0, r1 := m.CommitsFunc.nextHook()(v0, v1, v2)
+	m.CommitsFunc.appendCall(ClientCommitsFuncCall{v0, v1, v2, r0, r1})
 	return r0, r1
 }
 
@@ -2197,12 +2197,12 @@ type ClientCommitsFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
-	// Arg3 is the value of the 4th argument passed to this method
-	// invocation.
-	Arg3 CommitsOptions
+	Arg2 CommitsOptions
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 []*gitdomain.Commit
@@ -2214,7 +2214,7 @@ type ClientCommitsFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientCommitsFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2}
 }
 
 // Results returns an interface slice containing the results of this
@@ -2234,9 +2234,9 @@ type ClientCommitsExistFunc struct {
 
 // CommitsExist delegates to the next hook function in the queue and stores
 // the parameter and result values of this invocation.
-func (m *MockClient) CommitsExist(v0 context.Context, v2 []api.RepoCommit) ([]bool, error) {
-	r0, r1 := m.CommitsExistFunc.nextHook()(v0, v2)
-	m.CommitsExistFunc.appendCall(ClientCommitsExistFuncCall{v0, v2, r0, r1})
+func (m *MockClient) CommitsExist(v0 context.Context, v1 []api.RepoCommit) ([]bool, error) {
+	r0, r1 := m.CommitsExistFunc.nextHook()(v0, v1)
+	m.CommitsExistFunc.appendCall(ClientCommitsExistFuncCall{v0, v1, r0, r1})
 	return r0, r1
 }
 
@@ -2307,9 +2307,9 @@ type ClientCommitsExistFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
-	// Arg2 is the value of the 3rd argument passed to this method
+	// Arg1 is the value of the 2nd argument passed to this method
 	// invocation.
-	Arg2 []api.RepoCommit
+	Arg1 []api.RepoCommit
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 []bool
@@ -2321,7 +2321,7 @@ type ClientCommitsExistFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientCommitsExistFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2}
+	return []interface{}{c.Arg0, c.Arg1}
 }
 
 // Results returns an interface slice containing the results of this
@@ -2342,9 +2342,9 @@ type ClientCommitsUniqueToBranchFunc struct {
 
 // CommitsUniqueToBranch delegates to the next hook function in the queue
 // and stores the parameter and result values of this invocation.
-func (m *MockClient) CommitsUniqueToBranch(v0 context.Context, v2 api.RepoName, v3 string, v4 bool, v5 *time.Time) (map[string]time.Time, error) {
-	r0, r1 := m.CommitsUniqueToBranchFunc.nextHook()(v0, v2, v3, v4, v5)
-	m.CommitsUniqueToBranchFunc.appendCall(ClientCommitsUniqueToBranchFuncCall{v0, v2, v3, v4, v5, r0, r1})
+func (m *MockClient) CommitsUniqueToBranch(v0 context.Context, v1 api.RepoName, v2 string, v3 bool, v4 *time.Time) (map[string]time.Time, error) {
+	r0, r1 := m.CommitsUniqueToBranchFunc.nextHook()(v0, v1, v2, v3, v4)
+	m.CommitsUniqueToBranchFunc.appendCall(ClientCommitsUniqueToBranchFuncCall{v0, v1, v2, v3, v4, r0, r1})
 	return r0, r1
 }
 
@@ -2416,18 +2416,18 @@ type ClientCommitsUniqueToBranchFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg2 string
 	// Arg3 is the value of the 4th argument passed to this method
 	// invocation.
-	Arg3 string
+	Arg3 bool
 	// Arg4 is the value of the 5th argument passed to this method
 	// invocation.
-	Arg4 bool
-	// Arg5 is the value of the 6th argument passed to this method
-	// invocation.
-	Arg5 *time.Time
+	Arg4 *time.Time
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 map[string]time.Time
@@ -2439,7 +2439,7 @@ type ClientCommitsUniqueToBranchFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientCommitsUniqueToBranchFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3, c.Arg4, c.Arg5}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2, c.Arg3, c.Arg4}
 }
 
 // Results returns an interface slice containing the results of this
@@ -2679,9 +2679,9 @@ type ClientDiffFunc struct {
 
 // Diff delegates to the next hook function in the queue and stores the
 // parameter and result values of this invocation.
-func (m *MockClient) Diff(v0 context.Context, v2 DiffOptions) (*DiffFileIterator, error) {
-	r0, r1 := m.DiffFunc.nextHook()(v0, v2)
-	m.DiffFunc.appendCall(ClientDiffFuncCall{v0, v2, r0, r1})
+func (m *MockClient) Diff(v0 context.Context, v1 DiffOptions) (*DiffFileIterator, error) {
+	r0, r1 := m.DiffFunc.nextHook()(v0, v1)
+	m.DiffFunc.appendCall(ClientDiffFuncCall{v0, v1, r0, r1})
 	return r0, r1
 }
 
@@ -2752,9 +2752,9 @@ type ClientDiffFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
-	// Arg2 is the value of the 3rd argument passed to this method
+	// Arg1 is the value of the 2nd argument passed to this method
 	// invocation.
-	Arg2 DiffOptions
+	Arg1 DiffOptions
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 *DiffFileIterator
@@ -2766,7 +2766,7 @@ type ClientDiffFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientDiffFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2}
+	return []interface{}{c.Arg0, c.Arg1}
 }
 
 // Results returns an interface slice containing the results of this
@@ -2786,9 +2786,9 @@ type ClientDiffPathFunc struct {
 
 // DiffPath delegates to the next hook function in the queue and stores the
 // parameter and result values of this invocation.
-func (m *MockClient) DiffPath(v0 context.Context, v2 api.RepoName, v3 string, v4 string, v5 string) ([]*diff.Hunk, error) {
-	r0, r1 := m.DiffPathFunc.nextHook()(v0, v2, v3, v4, v5)
-	m.DiffPathFunc.appendCall(ClientDiffPathFuncCall{v0, v2, v3, v4, v5, r0, r1})
+func (m *MockClient) DiffPath(v0 context.Context, v1 api.RepoName, v2 string, v3 string, v4 string) ([]*diff.Hunk, error) {
+	r0, r1 := m.DiffPathFunc.nextHook()(v0, v1, v2, v3, v4)
+	m.DiffPathFunc.appendCall(ClientDiffPathFuncCall{v0, v1, v2, v3, v4, r0, r1})
 	return r0, r1
 }
 
@@ -2859,18 +2859,18 @@ type ClientDiffPathFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg2 string
 	// Arg3 is the value of the 4th argument passed to this method
 	// invocation.
 	Arg3 string
 	// Arg4 is the value of the 5th argument passed to this method
 	// invocation.
 	Arg4 string
-	// Arg5 is the value of the 6th argument passed to this method
-	// invocation.
-	Arg5 string
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 []*diff.Hunk
@@ -2882,7 +2882,7 @@ type ClientDiffPathFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientDiffPathFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3, c.Arg4, c.Arg5}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2, c.Arg3, c.Arg4}
 }
 
 // Results returns an interface slice containing the results of this
@@ -3015,9 +3015,9 @@ type ClientFirstEverCommitFunc struct {
 
 // FirstEverCommit delegates to the next hook function in the queue and
 // stores the parameter and result values of this invocation.
-func (m *MockClient) FirstEverCommit(v0 context.Context, v2 api.RepoName) (*gitdomain.Commit, error) {
-	r0, r1 := m.FirstEverCommitFunc.nextHook()(v0, v2)
-	m.FirstEverCommitFunc.appendCall(ClientFirstEverCommitFuncCall{v0, v2, r0, r1})
+func (m *MockClient) FirstEverCommit(v0 context.Context, v1 api.RepoName) (*gitdomain.Commit, error) {
+	r0, r1 := m.FirstEverCommitFunc.nextHook()(v0, v1)
+	m.FirstEverCommitFunc.appendCall(ClientFirstEverCommitFuncCall{v0, v1, r0, r1})
 	return r0, r1
 }
 
@@ -3089,9 +3089,9 @@ type ClientFirstEverCommitFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
-	// Arg2 is the value of the 3rd argument passed to this method
+	// Arg1 is the value of the 2nd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg1 api.RepoName
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 *gitdomain.Commit
@@ -3103,7 +3103,7 @@ type ClientFirstEverCommitFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientFirstEverCommitFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2}
+	return []interface{}{c.Arg0, c.Arg1}
 }
 
 // Results returns an interface slice containing the results of this
@@ -3237,9 +3237,9 @@ type ClientGetCommitFunc struct {
 
 // GetCommit delegates to the next hook function in the queue and stores the
 // parameter and result values of this invocation.
-func (m *MockClient) GetCommit(v0 context.Context, v2 api.RepoName, v3 api.CommitID, v4 ResolveRevisionOptions) (*gitdomain.Commit, error) {
-	r0, r1 := m.GetCommitFunc.nextHook()(v0, v2, v3, v4)
-	m.GetCommitFunc.appendCall(ClientGetCommitFuncCall{v0, v2, v3, v4, r0, r1})
+func (m *MockClient) GetCommit(v0 context.Context, v1 api.RepoName, v2 api.CommitID, v3 ResolveRevisionOptions) (*gitdomain.Commit, error) {
+	r0, r1 := m.GetCommitFunc.nextHook()(v0, v1, v2, v3)
+	m.GetCommitFunc.appendCall(ClientGetCommitFuncCall{v0, v1, v2, v3, r0, r1})
 	return r0, r1
 }
 
@@ -3310,15 +3310,15 @@ type ClientGetCommitFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg2 api.CommitID
 	// Arg3 is the value of the 4th argument passed to this method
 	// invocation.
-	Arg3 api.CommitID
-	// Arg4 is the value of the 5th argument passed to this method
-	// invocation.
-	Arg4 ResolveRevisionOptions
+	Arg3 ResolveRevisionOptions
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 *gitdomain.Commit
@@ -3330,7 +3330,7 @@ type ClientGetCommitFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientGetCommitFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3, c.Arg4}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2, c.Arg3}
 }
 
 // Results returns an interface slice containing the results of this
@@ -3350,9 +3350,9 @@ type ClientGetCommitsFunc struct {
 
 // GetCommits delegates to the next hook function in the queue and stores
 // the parameter and result values of this invocation.
-func (m *MockClient) GetCommits(v0 context.Context, v2 []api.RepoCommit, v3 bool) ([]*gitdomain.Commit, error) {
-	r0, r1 := m.GetCommitsFunc.nextHook()(v0, v2, v3)
-	m.GetCommitsFunc.appendCall(ClientGetCommitsFuncCall{v0, v2, v3, r0, r1})
+func (m *MockClient) GetCommits(v0 context.Context, v1 []api.RepoCommit, v2 bool) ([]*gitdomain.Commit, error) {
+	r0, r1 := m.GetCommitsFunc.nextHook()(v0, v1, v2)
+	m.GetCommitsFunc.appendCall(ClientGetCommitsFuncCall{v0, v1, v2, r0, r1})
 	return r0, r1
 }
 
@@ -3423,12 +3423,12 @@ type ClientGetCommitsFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 []api.RepoCommit
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 []api.RepoCommit
-	// Arg3 is the value of the 4th argument passed to this method
-	// invocation.
-	Arg3 bool
+	Arg2 bool
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 []*gitdomain.Commit
@@ -3440,7 +3440,7 @@ type ClientGetCommitsFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientGetCommitsFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2}
 }
 
 // Results returns an interface slice containing the results of this
@@ -3684,9 +3684,9 @@ type ClientHasCommitAfterFunc struct {
 
 // HasCommitAfter delegates to the next hook function in the queue and
 // stores the parameter and result values of this invocation.
-func (m *MockClient) HasCommitAfter(v0 context.Context, v2 api.RepoName, v3 string, v4 string) (bool, error) {
-	r0, r1 := m.HasCommitAfterFunc.nextHook()(v0, v2, v3, v4)
-	m.HasCommitAfterFunc.appendCall(ClientHasCommitAfterFuncCall{v0, v2, v3, v4, r0, r1})
+func (m *MockClient) HasCommitAfter(v0 context.Context, v1 api.RepoName, v2 string, v3 string) (bool, error) {
+	r0, r1 := m.HasCommitAfterFunc.nextHook()(v0, v1, v2, v3)
+	m.HasCommitAfterFunc.appendCall(ClientHasCommitAfterFuncCall{v0, v1, v2, v3, r0, r1})
 	return r0, r1
 }
 
@@ -3758,15 +3758,15 @@ type ClientHasCommitAfterFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg2 string
 	// Arg3 is the value of the 4th argument passed to this method
 	// invocation.
 	Arg3 string
-	// Arg4 is the value of the 5th argument passed to this method
-	// invocation.
-	Arg4 string
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 bool
@@ -3778,7 +3778,7 @@ type ClientHasCommitAfterFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientHasCommitAfterFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3, c.Arg4}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2, c.Arg3}
 }
 
 // Results returns an interface slice containing the results of this
@@ -3798,9 +3798,9 @@ type ClientHeadFunc struct {
 
 // Head delegates to the next hook function in the queue and stores the
 // parameter and result values of this invocation.
-func (m *MockClient) Head(v0 context.Context, v2 api.RepoName) (string, bool, error) {
-	r0, r1, r2 := m.HeadFunc.nextHook()(v0, v2)
-	m.HeadFunc.appendCall(ClientHeadFuncCall{v0, v2, r0, r1, r2})
+func (m *MockClient) Head(v0 context.Context, v1 api.RepoName) (string, bool, error) {
+	r0, r1, r2 := m.HeadFunc.nextHook()(v0, v1)
+	m.HeadFunc.appendCall(ClientHeadFuncCall{v0, v1, r0, r1, r2})
 	return r0, r1, r2
 }
 
@@ -3871,9 +3871,9 @@ type ClientHeadFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
-	// Arg2 is the value of the 3rd argument passed to this method
+	// Arg1 is the value of the 2nd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg1 api.RepoName
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 string
@@ -3888,7 +3888,7 @@ type ClientHeadFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientHeadFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2}
+	return []interface{}{c.Arg0, c.Arg1}
 }
 
 // Results returns an interface slice containing the results of this
@@ -4240,9 +4240,9 @@ type ClientListDirectoryChildrenFunc struct {
 
 // ListDirectoryChildren delegates to the next hook function in the queue
 // and stores the parameter and result values of this invocation.
-func (m *MockClient) ListDirectoryChildren(v0 context.Context, v2 api.RepoName, v3 api.CommitID, v4 []string) (map[string][]string, error) {
-	r0, r1 := m.ListDirectoryChildrenFunc.nextHook()(v0, v2, v3, v4)
-	m.ListDirectoryChildrenFunc.appendCall(ClientListDirectoryChildrenFuncCall{v0, v2, v3, v4, r0, r1})
+func (m *MockClient) ListDirectoryChildren(v0 context.Context, v1 api.RepoName, v2 api.CommitID, v3 []string) (map[string][]string, error) {
+	r0, r1 := m.ListDirectoryChildrenFunc.nextHook()(v0, v1, v2, v3)
+	m.ListDirectoryChildrenFunc.appendCall(ClientListDirectoryChildrenFuncCall{v0, v1, v2, v3, r0, r1})
 	return r0, r1
 }
 
@@ -4314,15 +4314,15 @@ type ClientListDirectoryChildrenFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg2 api.CommitID
 	// Arg3 is the value of the 4th argument passed to this method
 	// invocation.
-	Arg3 api.CommitID
-	// Arg4 is the value of the 5th argument passed to this method
-	// invocation.
-	Arg4 []string
+	Arg3 []string
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 map[string][]string
@@ -4334,7 +4334,7 @@ type ClientListDirectoryChildrenFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientListDirectoryChildrenFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3, c.Arg4}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2, c.Arg3}
 }
 
 // Results returns an interface slice containing the results of this
@@ -4692,9 +4692,9 @@ type ClientLsFilesFunc struct {
 
 // LsFiles delegates to the next hook function in the queue and stores the
 // parameter and result values of this invocation.
-func (m *MockClient) LsFiles(v0 context.Context, v2 api.RepoName, v3 api.CommitID, v4 ...gitdomain.Pathspec) ([]string, error) {
-	r0, r1 := m.LsFilesFunc.nextHook()(v0, v2, v3, v4...)
-	m.LsFilesFunc.appendCall(ClientLsFilesFuncCall{v0, v2, v3, v4, r0, r1})
+func (m *MockClient) LsFiles(v0 context.Context, v1 api.RepoName, v2 api.CommitID, v3 ...gitdomain.Pathspec) ([]string, error) {
+	r0, r1 := m.LsFilesFunc.nextHook()(v0, v1, v2, v3...)
+	m.LsFilesFunc.appendCall(ClientLsFilesFuncCall{v0, v1, v2, v3, r0, r1})
 	return r0, r1
 }
 
@@ -4765,15 +4765,15 @@ type ClientLsFilesFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
-	// Arg3 is the value of the 4th argument passed to this method
-	// invocation.
-	Arg3 api.CommitID
-	// Arg4 is a slice containing the values of the variadic arguments
+	Arg2 api.CommitID
+	// Arg3 is a slice containing the values of the variadic arguments
 	// passed to this method invocation.
-	Arg4 []gitdomain.Pathspec
+	Arg3 []gitdomain.Pathspec
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 []string
@@ -4788,11 +4788,11 @@ type ClientLsFilesFuncCall struct {
 // a slice of four, not two.
 func (c ClientLsFilesFuncCall) Args() []interface{} {
 	trailing := []interface{}{}
-	for _, val := range c.Arg4 {
+	for _, val := range c.Arg3 {
 		trailing = append(trailing, val)
 	}
 
-	return append([]interface{}{c.Arg0, c.Arg2, c.Arg3}, trailing...)
+	return append([]interface{}{c.Arg0, c.Arg1, c.Arg2}, trailing...)
 }
 
 // Results returns an interface slice containing the results of this
@@ -4925,9 +4925,9 @@ type ClientNewFileReaderFunc struct {
 
 // NewFileReader delegates to the next hook function in the queue and stores
 // the parameter and result values of this invocation.
-func (m *MockClient) NewFileReader(v0 context.Context, v2 api.RepoName, v3 api.CommitID, v4 string) (io.ReadCloser, error) {
-	r0, r1 := m.NewFileReaderFunc.nextHook()(v0, v2, v3, v4)
-	m.NewFileReaderFunc.appendCall(ClientNewFileReaderFuncCall{v0, v2, v3, v4, r0, r1})
+func (m *MockClient) NewFileReader(v0 context.Context, v1 api.RepoName, v2 api.CommitID, v3 string) (io.ReadCloser, error) {
+	r0, r1 := m.NewFileReaderFunc.nextHook()(v0, v1, v2, v3)
+	m.NewFileReaderFunc.appendCall(ClientNewFileReaderFuncCall{v0, v1, v2, v3, r0, r1})
 	return r0, r1
 }
 
@@ -4998,15 +4998,15 @@ type ClientNewFileReaderFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg2 api.CommitID
 	// Arg3 is the value of the 4th argument passed to this method
 	// invocation.
-	Arg3 api.CommitID
-	// Arg4 is the value of the 5th argument passed to this method
-	// invocation.
-	Arg4 string
+	Arg3 string
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 io.ReadCloser
@@ -5018,7 +5018,7 @@ type ClientNewFileReaderFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientNewFileReaderFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3, c.Arg4}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2, c.Arg3}
 }
 
 // Results returns an interface slice containing the results of this
@@ -5275,9 +5275,9 @@ type ClientReadDirFunc struct {
 
 // ReadDir delegates to the next hook function in the queue and stores the
 // parameter and result values of this invocation.
-func (m *MockClient) ReadDir(v0 context.Context, v2 api.RepoName, v3 api.CommitID, v4 string, v5 bool) ([]fs.FileInfo, error) {
-	r0, r1 := m.ReadDirFunc.nextHook()(v0, v2, v3, v4, v5)
-	m.ReadDirFunc.appendCall(ClientReadDirFuncCall{v0, v2, v3, v4, v5, r0, r1})
+func (m *MockClient) ReadDir(v0 context.Context, v1 api.RepoName, v2 api.CommitID, v3 string, v4 bool) ([]fs.FileInfo, error) {
+	r0, r1 := m.ReadDirFunc.nextHook()(v0, v1, v2, v3, v4)
+	m.ReadDirFunc.appendCall(ClientReadDirFuncCall{v0, v1, v2, v3, v4, r0, r1})
 	return r0, r1
 }
 
@@ -5348,18 +5348,18 @@ type ClientReadDirFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg2 api.CommitID
 	// Arg3 is the value of the 4th argument passed to this method
 	// invocation.
-	Arg3 api.CommitID
+	Arg3 string
 	// Arg4 is the value of the 5th argument passed to this method
 	// invocation.
-	Arg4 string
-	// Arg5 is the value of the 6th argument passed to this method
-	// invocation.
-	Arg5 bool
+	Arg4 bool
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 []fs.FileInfo
@@ -5371,7 +5371,7 @@ type ClientReadDirFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientReadDirFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3, c.Arg4, c.Arg5}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2, c.Arg3, c.Arg4}
 }
 
 // Results returns an interface slice containing the results of this
@@ -5391,9 +5391,9 @@ type ClientReadFileFunc struct {
 
 // ReadFile delegates to the next hook function in the queue and stores the
 // parameter and result values of this invocation.
-func (m *MockClient) ReadFile(v0 context.Context, v2 api.RepoName, v3 api.CommitID, v4 string) ([]byte, error) {
-	r0, r1 := m.ReadFileFunc.nextHook()(v0, v2, v3, v4)
-	m.ReadFileFunc.appendCall(ClientReadFileFuncCall{v0, v2, v3, v4, r0, r1})
+func (m *MockClient) ReadFile(v0 context.Context, v1 api.RepoName, v2 api.CommitID, v3 string) ([]byte, error) {
+	r0, r1 := m.ReadFileFunc.nextHook()(v0, v1, v2, v3)
+	m.ReadFileFunc.appendCall(ClientReadFileFuncCall{v0, v1, v2, v3, r0, r1})
 	return r0, r1
 }
 
@@ -5464,15 +5464,15 @@ type ClientReadFileFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg2 api.CommitID
 	// Arg3 is the value of the 4th argument passed to this method
 	// invocation.
-	Arg3 api.CommitID
-	// Arg4 is the value of the 5th argument passed to this method
-	// invocation.
-	Arg4 string
+	Arg3 string
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 []byte
@@ -5484,7 +5484,7 @@ type ClientReadFileFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientReadFileFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3, c.Arg4}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2, c.Arg3}
 }
 
 // Results returns an interface slice containing the results of this
@@ -5504,9 +5504,9 @@ type ClientRefDescriptionsFunc struct {
 
 // RefDescriptions delegates to the next hook function in the queue and
 // stores the parameter and result values of this invocation.
-func (m *MockClient) RefDescriptions(v0 context.Context, v2 api.RepoName, v3 ...string) (map[string][]gitdomain.RefDescription, error) {
-	r0, r1 := m.RefDescriptionsFunc.nextHook()(v0, v2, v3...)
-	m.RefDescriptionsFunc.appendCall(ClientRefDescriptionsFuncCall{v0, v2, v3, r0, r1})
+func (m *MockClient) RefDescriptions(v0 context.Context, v1 api.RepoName, v2 ...string) (map[string][]gitdomain.RefDescription, error) {
+	r0, r1 := m.RefDescriptionsFunc.nextHook()(v0, v1, v2...)
+	m.RefDescriptionsFunc.appendCall(ClientRefDescriptionsFuncCall{v0, v1, v2, r0, r1})
 	return r0, r1
 }
 
@@ -5578,12 +5578,12 @@ type ClientRefDescriptionsFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
-	// Arg2 is the value of the 3rd argument passed to this method
+	// Arg1 is the value of the 2nd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
-	// Arg3 is a slice containing the values of the variadic arguments
+	Arg1 api.RepoName
+	// Arg2 is a slice containing the values of the variadic arguments
 	// passed to this method invocation.
-	Arg3 []string
+	Arg2 []string
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 map[string][]gitdomain.RefDescription
@@ -5598,11 +5598,11 @@ type ClientRefDescriptionsFuncCall struct {
 // a slice of four, not two.
 func (c ClientRefDescriptionsFuncCall) Args() []interface{} {
 	trailing := []interface{}{}
-	for _, val := range c.Arg3 {
+	for _, val := range c.Arg2 {
 		trailing = append(trailing, val)
 	}
 
-	return append([]interface{}{c.Arg0, c.Arg2}, trailing...)
+	return append([]interface{}{c.Arg0, c.Arg1}, trailing...)
 }
 
 // Results returns an interface slice containing the results of this
@@ -6505,9 +6505,9 @@ type ClientStatFunc struct {
 
 // Stat delegates to the next hook function in the queue and stores the
 // parameter and result values of this invocation.
-func (m *MockClient) Stat(v0 context.Context, v2 api.RepoName, v3 api.CommitID, v4 string) (fs.FileInfo, error) {
-	r0, r1 := m.StatFunc.nextHook()(v0, v2, v3, v4)
-	m.StatFunc.appendCall(ClientStatFuncCall{v0, v2, v3, v4, r0, r1})
+func (m *MockClient) Stat(v0 context.Context, v1 api.RepoName, v2 api.CommitID, v3 string) (fs.FileInfo, error) {
+	r0, r1 := m.StatFunc.nextHook()(v0, v1, v2, v3)
+	m.StatFunc.appendCall(ClientStatFuncCall{v0, v1, v2, v3, r0, r1})
 	return r0, r1
 }
 
@@ -6578,15 +6578,15 @@ type ClientStatFuncCall struct {
 	// Arg0 is the value of the 1st argument passed to this method
 	// invocation.
 	Arg0 context.Context
+	// Arg1 is the value of the 2nd argument passed to this method
+	// invocation.
+	Arg1 api.RepoName
 	// Arg2 is the value of the 3rd argument passed to this method
 	// invocation.
-	Arg2 api.RepoName
+	Arg2 api.CommitID
 	// Arg3 is the value of the 4th argument passed to this method
 	// invocation.
-	Arg3 api.CommitID
-	// Arg4 is the value of the 5th argument passed to this method
-	// invocation.
-	Arg4 string
+	Arg3 string
 	// Result0 is the value of the 1st result returned from this method
 	// invocation.
 	Result0 fs.FileInfo
@@ -6598,7 +6598,7 @@ type ClientStatFuncCall struct {
 // Args returns an interface slice containing the arguments of this
 // invocation.
 func (c ClientStatFuncCall) Args() []interface{} {
-	return []interface{}{c.Arg0, c.Arg2, c.Arg3, c.Arg4}
+	return []interface{}{c.Arg0, c.Arg1, c.Arg2, c.Arg3}
 }
 
 // Results returns an interface slice containing the results of this
