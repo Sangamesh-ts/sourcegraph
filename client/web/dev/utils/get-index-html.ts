@@ -1,11 +1,9 @@
-import { readFileSync, writeFileSync } from 'fs'
+import { readFileSync } from 'fs'
 import path from 'path'
-
-import type { WebpackPluginFunction } from 'webpack'
 
 import type { SourcegraphContext } from '../../src/jscontext'
 
-import { createJsContext, ENVIRONMENT_CONFIG, HTTPS_WEB_SERVER_URL, STATIC_INDEX_PATH } from '.'
+import { createJsContext, ENVIRONMENT_CONFIG, HTTPS_WEB_SERVER_URL } from '.'
 
 const { NODE_ENV, STATIC_ASSETS_PATH } = ENVIRONMENT_CONFIG
 
@@ -84,9 +82,6 @@ export function getIndexHTML(options: GetHTMLPageOptions): string {
     <body>
         <div id="root"></div>
         <script>
-            // Optional value useful for checking if index.html is created by HtmlWebpackPlugin with the right NODE_ENV.
-            window.webpackBuildEnvironment = '${NODE_ENV}'
-
             ${
                 jsContextScript ||
                 `
@@ -105,10 +100,4 @@ export function getIndexHTML(options: GetHTMLPageOptions): string {
     </body>
 </html>
 `
-}
-
-export const writeIndexHTMLPlugin: WebpackPluginFunction = compiler => {
-    compiler.hooks.done.tap('WriteIndexHTMLPlugin', () => {
-        writeFileSync(STATIC_INDEX_PATH, getIndexHTML({ manifestFile: getWebBuildManifest() }), 'utf-8')
-    })
 }
