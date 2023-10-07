@@ -21,12 +21,12 @@ export const getManifest = (
 })
 
 const writeManifest = async (manifest: WebBuildManifest): Promise<void> => {
+    await fs.promises.mkdir(path.dirname(WEB_BUILD_MANIFEST_PATH), { recursive: true })
     await fs.promises.writeFile(WEB_BUILD_MANIFEST_PATH, JSON.stringify(manifest, null, 2))
 }
 
 /**
- * An esbuild plugin to write a web.manifest.json file (just as Webpack does), for compatibility
- * with our current Webpack build.
+ * An esbuild plugin to write a web.manifest.json file.
  */
 export const manifestPlugin: esbuild.Plugin = {
     name: 'manifest',

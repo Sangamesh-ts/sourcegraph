@@ -15,7 +15,6 @@ import {
     buildMonaco,
     buildTimerPlugin,
 } from '@sourcegraph/build-config'
-import { isDefined } from '@sourcegraph/common'
 
 import { ENVIRONMENT_CONFIG, IS_DEVELOPMENT, IS_PRODUCTION } from '../utils'
 
@@ -78,7 +77,7 @@ export const BUILD_OPTIONS: esbuild.BuildOptions = {
                   sourcemaps: { assets: path.join(ENVIRONMENT_CONFIG.STATIC_ASSETS_PATH, 'scripts', '*.map') },
               })
             : null,
-    ].filter(isDefined),
+    ].filter((plugin): plugin is esbuild.Plugin => plugin !== null),
     define: {
         ...Object.fromEntries(
             Object.entries({ ...ENVIRONMENT_CONFIG, SOURCEGRAPH_API_URL: undefined }).map(([key, value]) => [
@@ -100,11 +99,12 @@ export const BUILD_OPTIONS: esbuild.BuildOptions = {
 
 export const build = async (): Promise<void> => {
     const metafile = process.env.ESBUILD_METAFILE
-    const result = await esbuild.build({
+    const options: esbuild.BuildOptions = {
         ...BUILD_OPTIONS,
         outdir: STATIC_ASSETS_PATH,
         metafile: Boolean(metafile),
-    })
+    }
+    const result = await esbuild.build(options)
     if (metafile) {
         writeFileSync(metafile, JSON.stringify(result.metafile), 'utf-8')
     }
@@ -112,6 +112,12 @@ export const build = async (): Promise<void> => {
         const ctx = await buildMonaco(STATIC_ASSETS_PATH)
         await ctx.rebuild()
         await ctx.dispose()
+    }
+
+    if (process.env.WATCH) {
+        const ctx = await esbuild.context(options)
+        await ctx.watch()
+        await new Promise(() => {}) // wait forever
     }
 }
 
