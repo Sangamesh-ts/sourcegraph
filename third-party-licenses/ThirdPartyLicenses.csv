@@ -919,7 +919,6 @@ PNPM,babel-plugin-apply-mdx-type-prop,1.6.22,MIT,"",Approved
 PNPM,babel-plugin-extract-import-names,1.6.22,MIT,"",Approved
 PNPM,babel-plugin-istanbul,6.1.1,New BSD,"",Approved
 PNPM,babel-plugin-jest-hoist,28.1.3,MIT,"",Approved
-PNPM,babel-plugin-lodash,3.3.4,MIT,"",Approved
 PNPM,babel-plugin-macros,3.0.1,MIT,"",Approved
 PNPM,babel-plugin-named-exports-order,0.0.2,MIT,"",Approved
 PNPM,babel-plugin-polyfill-corejs2,0.3.3,MIT,"",Approved
